@@ -4,6 +4,56 @@
   
     
     <entry>
+      <title>Vue项目--devServer.proxy代理配置详解</title>
+      <link href="/2021/09/17/%E5%89%8D%E7%AB%AF/Vue/Vue%E9%A1%B9%E7%9B%AE--devServer.proxy%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2021/09/17/%E5%89%8D%E7%AB%AF/Vue/Vue%E9%A1%B9%E7%9B%AE--devServer.proxy%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="代理配置详解"><a href="#代理配置详解" class="headerlink" title="代理配置详解"></a>代理配置详解</h1><blockquote><p>如果你的前端应用和后端 API 服务器没有运行在同一个主机上，你需要在开发环境下将 API 请求代理到 API 服务器。可以通过  *.config.js 中的 devServer.proxy 选项来配置。</p><p>作者：RealHumans<br>链接：<a href="https://www.jianshu.com/p/8493282fe232">https://www.jianshu.com/p/8493282fe232</a><br>来源：简书</p></blockquote><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="built_in">require</span>(<span class="string">&#x27;http-proxy-middleware&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;   </span><br><span class="line"><span class="attr">devServer</span>:&#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,<span class="comment">//target host</span></span><br><span class="line">    <span class="attr">port</span>: <span class="number">8080</span>,</span><br><span class="line">    <span class="comment">//proxy:&#123;&#x27;/api&#x27;:&#123;&#125;&#125;,代理器中设置/api,项目中请求路径为/api的替换为target</span></span><br><span class="line">    <span class="attr">proxy</span>:&#123;</span><br><span class="line">        <span class="string">&#x27;/api&#x27;</span>:&#123;</span><br><span class="line">            <span class="attr">target</span>: <span class="string">&#x27;http://192.168.1.30:8085&#x27;</span>,<span class="comment">//代理地址，这里设置的地址会代替axios中设置的baseURL</span></span><br><span class="line">            <span class="attr">changeOrigin</span>: <span class="literal">true</span>,<span class="comment">// 如果接口跨域，需要进行这个参数配置</span></span><br><span class="line">            <span class="comment">//ws: true, // proxy websockets</span></span><br><span class="line">            <span class="comment">//pathRewrite方法重写url</span></span><br><span class="line">            <span class="attr">pathRewrite</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;^/api&#x27;</span>: <span class="string">&#x27;/&#x27;</span> </span><br><span class="line">                <span class="comment">//pathRewrite: &#123;&#x27;^/api&#x27;: &#x27;/&#x27;&#125; 重写之后url为 http://192.168.1.16:8085/xxxx</span></span><br><span class="line">                <span class="comment">//pathRewrite: &#123;&#x27;^/api&#x27;: &#x27;/api&#x27;&#125; 重写之后url为 http://192.168.1.16:8085/api/xxxx</span></span><br><span class="line">           &#125;</span><br><span class="line">    &#125;&#125;</span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Eureka服务注册与发现</title>
+      <link href="/2021/08/24/%E5%90%8E%E7%AB%AF/springcloud/OpenFeign%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/"/>
+      <url>/2021/08/24/%E5%90%8E%E7%AB%AF/springcloud/OpenFeign%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3%E8%B0%83%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="OpenFeign服务接口调用"><a href="#OpenFeign服务接口调用" class="headerlink" title="OpenFeign服务接口调用"></a>OpenFeign服务接口调用</h1><ol><li><p>先谈谈Ribbon负载均衡调用</p><p>Spring Cloud Ribbon是基于Netflix Ribbon实现的一套客户端       负载均衡的工具。</p><p>简单的说，Ribbon是Netflix发布的开源项目，主要功能是提供客户端的软件负载均衡算法和服务调用。Ribbon客户端组件提供一系列完善的配置项如连接超时，重试等。简单的说，就是在配置文件中列出Load Balancer（简称LB）后面所有的机器，Ribbon会自动的帮助你基于某种规则（如简单轮询，随机连接等）去连接这些机器。我们很容易使用Ribbon实现自定义的负载均衡算法。</p></li><li><p>OpenFeign服务的概述</p></li><li><p>OpenFeign使用步骤</p></li><li><p>OpenFeign服务超时控制</p></li><li><p>OpenFeign服务日志打印功能</p></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 后端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SpringCloud </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>微服务架构编码构建</title>
       <link href="/2021/08/24/%E5%90%8E%E7%AB%AF/springcloud/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B8%80)/"/>
       <url>/2021/08/24/%E5%90%8E%E7%AB%AF/springcloud/SpringCloud%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B8%80)/</url>
